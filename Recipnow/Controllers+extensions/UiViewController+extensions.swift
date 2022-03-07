@@ -73,6 +73,3 @@ extension UserValidation{
 
 extension RegisterViewController: UserValidation{}
 extension LoginViewController: UserValidation{}
-
-
-
