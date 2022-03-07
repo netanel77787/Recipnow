@@ -1,0 +1,6 @@
+framework module Pods_Recipnow {
+  umbrella header "Pods-Recipnow-umbrella.h"
+
+  export *
+  module * { export * }
+}
