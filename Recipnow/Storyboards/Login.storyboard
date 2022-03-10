@@ -11,7 +11,7 @@
         <!--Home Page-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="HomeLoginViewController" customModule="Recipnati" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="HomeLoginViewController" customModule="Recipnow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,7 +58,7 @@
         <!--Sign Up-->
         <scene sceneID="q9X-MN-nvT">
             <objects>
-                <viewController id="cGv-U9-3d5" customClass="RegisterViewController" customModule="Recipnati" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cGv-U9-3d5" customClass="RegisterViewController" customModule="Recipnow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ivS-FW-lQ2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,7 +155,7 @@
         <!--Sign In-->
         <scene sceneID="vaj-MJ-VU2">
             <objects>
-                <viewController id="SPm-FW-WTP" customClass="LoginViewController" customModule="Recipnati" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SPm-FW-WTP" customClass="LoginViewController" customModule="Recipnow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xEz-rP-xIM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

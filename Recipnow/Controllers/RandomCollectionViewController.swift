@@ -1,26 +1,24 @@
 //
-//  HomeCollectionViewController.swift
-//  Recipnati
+//  RandomCollectionViewController.swift
+//  Recipnow
 //
 //  Created by Netanel Mantsoor on 05/03/2022.
 //
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
-class HomeCollectionViewController: UICollectionViewController {
+class RandomCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        
+        let action = UIAction { _ in
+            AppAuth.shared.signOut()
+        }
+        
+        let signOutBBI =  UIBarButtonItem(title: "Sign Out", image: nil, primaryAction: action, menu: .none)
+        
+        navigationItem.leftBarButtonItem = signOutBBI
     }
 
     /*
@@ -47,7 +45,7 @@ class HomeCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
     
         // Configure the cell
     

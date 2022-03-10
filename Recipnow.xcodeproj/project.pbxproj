@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE97152277D6E564C3FAB951 /* Pods_Recipnow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4ED7B1A1E227E78289D45D5 /* Pods_Recipnow.framework */; };
 		E336B6AA27D5A8B600DC8548 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336B6A927D5A8B600DC8548 /* AppDelegate.swift */; };
 		E336B6AC27D5A8B600DC8548 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336B6AB27D5A8B600DC8548 /* SceneDelegate.swift */; };
 		E336B6B127D5A8B600DC8548 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E336B6AF27D5A8B600DC8548 /* Main.storyboard */; };
@@ -16,18 +15,25 @@
 		E336B6B927D5A8B600DC8548 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E336B6B727D5A8B600DC8548 /* LaunchScreen.storyboard */; };
 		E342B49927D5B07C00ADE9AB /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E342B49827D5B07C00ADE9AB /* Login.storyboard */; };
 		E342B49D27D5B19100ADE9AB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B49C27D5B19100ADE9AB /* Router.swift */; };
-		E342B49F27D5B1CB00ADE9AB /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B49E27D5B1CB00ADE9AB /* HomeCollectionViewController.swift */; };
+		E342B49F27D5B1CB00ADE9AB /* RandomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B49E27D5B1CB00ADE9AB /* RandomCollectionViewController.swift */; };
 		E342B4A127D5B1D300ADE9AB /* HomeLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4A027D5B1D300ADE9AB /* HomeLoginViewController.swift */; };
 		E342B4A327D5B1D900ADE9AB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4A227D5B1D900ADE9AB /* LoginViewController.swift */; };
 		E342B4A527D5B1DF00ADE9AB /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4A427D5B1DF00ADE9AB /* RegisterViewController.swift */; };
 		E342B4A727D5B54B00ADE9AB /* UiViewController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4A627D5B54B00ADE9AB /* UiViewController+extensions.swift */; };
 		E342B4A927D5C3D200ADE9AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E342B4A827D5C3D200ADE9AB /* GoogleService-Info.plist */; };
+		E342B4AB27D705B600ADE9AB /* AppAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AA27D705B600ADE9AB /* AppAuth.swift */; };
+		E342B4AD27D7311300ADE9AB /* IdeasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */; };
+		E3F91E5027D7461A00A6C1D6 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */; };
+		E3F91E5527D882C800A6C1D6 /* RecipeIdea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */; };
+		E3F91E5727D887FA00A6C1D6 /* RandomRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5627D887FA00A6C1D6 /* RandomRecipe.swift */; };
+		E3F91E5927D88E5D00A6C1D6 /* SearchRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5827D88E5D00A6C1D6 /* SearchRecipes.swift */; };
+		E3F91E5D27DA002700A6C1D6 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5C27DA002700A6C1D6 /* Favorites.swift */; };
+		E3F91E5F27DA02EC00A6C1D6 /* FirebaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5E27DA02EC00A6C1D6 /* FirebaseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		19304FD1287CD2848A28FBE9 /* Pods-Recipnow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipnow.debug.xcconfig"; path = "Target Support Files/Pods-Recipnow/Pods-Recipnow.debug.xcconfig"; sourceTree = "<group>"; };
 		3A28819B9F43E85402C8D524 /* Pods-Recipnow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipnow.release.xcconfig"; path = "Target Support Files/Pods-Recipnow/Pods-Recipnow.release.xcconfig"; sourceTree = "<group>"; };
-		C4ED7B1A1E227E78289D45D5 /* Pods_Recipnow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipnow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E336B6A627D5A8B500DC8548 /* Recipnow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipnow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E336B6A927D5A8B600DC8548 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E336B6AB27D5A8B600DC8548 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,12 +44,20 @@
 		E336B6BA27D5A8B600DC8548 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E342B49827D5B07C00ADE9AB /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		E342B49C27D5B19100ADE9AB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		E342B49E27D5B1CB00ADE9AB /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
+		E342B49E27D5B1CB00ADE9AB /* RandomCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewController.swift; sourceTree = "<group>"; };
 		E342B4A027D5B1D300ADE9AB /* HomeLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLoginViewController.swift; sourceTree = "<group>"; };
 		E342B4A227D5B1D900ADE9AB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E342B4A427D5B1DF00ADE9AB /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E342B4A627D5B54B00ADE9AB /* UiViewController+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UiViewController+extensions.swift"; sourceTree = "<group>"; };
 		E342B4A827D5C3D200ADE9AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E342B4AA27D705B600ADE9AB /* AppAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuth.swift; sourceTree = "<group>"; };
+		E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasCollectionViewController.swift; sourceTree = "<group>"; };
+		E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIdea.swift; sourceTree = "<group>"; };
+		E3F91E5627D887FA00A6C1D6 /* RandomRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipe.swift; sourceTree = "<group>"; };
+		E3F91E5827D88E5D00A6C1D6 /* SearchRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipes.swift; sourceTree = "<group>"; };
+		E3F91E5C27DA002700A6C1D6 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		E3F91E5E27DA02EC00A6C1D6 /* FirebaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE97152277D6E564C3FAB951 /* Pods_Recipnow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,21 +80,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		778C33EEA6A14CCB96140775 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4ED7B1A1E227E78289D45D5 /* Pods_Recipnow.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E336B69D27D5A8B500DC8548 = {
 			isa = PBXGroup;
 			children = (
 				E336B6A827D5A8B600DC8548 /* Recipnow */,
 				E336B6A727D5A8B500DC8548 /* Products */,
 				4507713FF19C8BED7EBC0735 /* Pods */,
-				778C33EEA6A14CCB96140775 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +100,7 @@
 		E336B6A827D5A8B600DC8548 /* Recipnow */ = {
 			isa = PBXGroup;
 			children = (
+				E3F91E5127D7462300A6C1D6 /* Database */,
 				E342B49727D5AFC100ADE9AB /* Controllers+extensions */,
 				E336B6C327D5AB6500DC8548 /* Storyboards */,
 				E336B6C227D5AB5700DC8548 /* Models */,
@@ -124,7 +129,8 @@
 				E342B4A427D5B1DF00ADE9AB /* RegisterViewController.swift */,
 				E342B4A227D5B1D900ADE9AB /* LoginViewController.swift */,
 				E342B4A027D5B1D300ADE9AB /* HomeLoginViewController.swift */,
-				E342B49E27D5B1CB00ADE9AB /* HomeCollectionViewController.swift */,
+				E342B49E27D5B1CB00ADE9AB /* RandomCollectionViewController.swift */,
+				E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -133,6 +139,11 @@
 			isa = PBXGroup;
 			children = (
 				E342B49C27D5B19100ADE9AB /* Router.swift */,
+				E342B4AA27D705B600ADE9AB /* AppAuth.swift */,
+				E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */,
+				E3F91E5627D887FA00A6C1D6 /* RandomRecipe.swift */,
+				E3F91E5827D88E5D00A6C1D6 /* SearchRecipes.swift */,
+				E3F91E5C27DA002700A6C1D6 /* Favorites.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -153,6 +164,15 @@
 				E342B4A627D5B54B00ADE9AB /* UiViewController+extensions.swift */,
 			);
 			path = "Controllers+extensions";
+			sourceTree = "<group>";
+		};
+		E3F91E5127D7462300A6C1D6 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */,
+				E3F91E5E27DA02EC00A6C1D6 /* FirebaseModel.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,15 +292,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3F91E5027D7461A00A6C1D6 /* FirebaseManager.swift in Sources */,
+				E342B4AD27D7311300ADE9AB /* IdeasCollectionViewController.swift in Sources */,
+				E3F91E5727D887FA00A6C1D6 /* RandomRecipe.swift in Sources */,
+				E3F91E5927D88E5D00A6C1D6 /* SearchRecipes.swift in Sources */,
 				E342B4A327D5B1D900ADE9AB /* LoginViewController.swift in Sources */,
 				E342B49D27D5B19100ADE9AB /* Router.swift in Sources */,
 				E336B6B427D5A8B600DC8548 /* Recipnow.xcdatamodeld in Sources */,
 				E342B4A527D5B1DF00ADE9AB /* RegisterViewController.swift in Sources */,
+				E3F91E5F27DA02EC00A6C1D6 /* FirebaseModel.swift in Sources */,
 				E336B6AA27D5A8B600DC8548 /* AppDelegate.swift in Sources */,
-				E342B49F27D5B1CB00ADE9AB /* HomeCollectionViewController.swift in Sources */,
+				E342B49F27D5B1CB00ADE9AB /* RandomCollectionViewController.swift in Sources */,
 				E336B6AC27D5A8B600DC8548 /* SceneDelegate.swift in Sources */,
+				E342B4AB27D705B600ADE9AB /* AppAuth.swift in Sources */,
 				E342B4A727D5B54B00ADE9AB /* UiViewController+extensions.swift in Sources */,
+				E3F91E5D27DA002700A6C1D6 /* Favorites.swift in Sources */,
 				E342B4A127D5B1D300ADE9AB /* HomeLoginViewController.swift in Sources */,
+				E3F91E5527D882C800A6C1D6 /* RecipeIdea.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

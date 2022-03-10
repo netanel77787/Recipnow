@@ -1,6 +1,6 @@
 //
 //  RegisterViewController.swift
-//  Recipnati
+//  Recipnow
 //
 //  Created by Netanel Mantsoor on 05/03/2022.
 //
@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var togglePasswordLabel: UILabel!
+    
     @IBAction func showPasswordSwitch(_ sender: UISwitch) {
         passwordTextField.isSecureTextEntry = !sender.isOn
         togglePasswordLabel.text = sender.isOn ? "Hide Password" : "Show Password"
@@ -29,17 +30,9 @@ class RegisterViewController: UIViewController {
               let password = passwordTextField.text else {return}
         
         sender.isEnabled = false
-        showProgress(title: "Signing in")
+        showProgress(title: "Signing you in")
         
-        Auth.auth().createUser(withEmail: email, password: password) {[weak self] result, err in
-            if let err = err {
-                self?.showError(title: "Error", subtitle: "\(err.localizedDescription)")
-                sender.isEnabled = true
-                return
-            }
-            self?.showSuccess(title: "Welcome")
-            Router.shared.determineRootViewController()
-        }
+        AppAuth.shared.register(email: email, password: password, callback: callback(_:_:))
     }
     
     

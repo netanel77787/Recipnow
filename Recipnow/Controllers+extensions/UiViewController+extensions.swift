@@ -1,6 +1,6 @@
 //
 //  UiViewController+extensions.swift
-//  Recipnati
+//  Recipnow
 //
 //  Created by Netanel Mantsoor on 05/03/2022.
 //
@@ -8,6 +8,7 @@
 import Foundation
 import PKHUD
 import UIKit
+import FirebaseAuth
 
 // protocol #1
 protocol ShowHUD{}
@@ -31,11 +32,6 @@ extension ShowHUD{
     
 }
 
-
-extension UIViewController: ShowHUD{}
-
-
-
 // protocol #2
 protocol UserValidation: ShowHUD{
     var emailTextField: UITextField!{get}
@@ -44,16 +40,15 @@ protocol UserValidation: ShowHUD{
 }
 
 extension UserValidation{
- 
+    
     var isEmailValid: Bool{
         guard let email = emailTextField.text,
               !email.isEmpty,
-              email.count > 6,
               email.contains("@")
         else {
-            showLabel(title: "Email must not be empty")
+            showLabel(title: "Email is not valid")
             return false
-              }
+        }
         
         return true
     }
@@ -61,15 +56,28 @@ extension UserValidation{
     var isPasswordValid: Bool{
         guard let password = passwordTextField.text,
               !password.isEmpty,
-              password.count > 5
+              password.count >= 6
         else {
             showLabel(title: "Password must contain at least 6 characters")
             return false
-              }
+        }
         
         return true
     }
+    
+    func callback(_ result: AuthDataResult?,_ err: Error?){
+        
+        if let err = err {
+            showError(title: "Error", subtitle: "\(err.localizedDescription)")
+            return
+        }
+        showSuccess(title: "Welcome")
+        Router.shared.determineRootViewController()
+    }
+    
 }
+
+extension UIViewController: ShowHUD{}
 
 extension RegisterViewController: UserValidation{}
 extension LoginViewController: UserValidation{}
