@@ -21,6 +21,12 @@ struct RRecipe: Decodable{
     let image: String
     let summary: String
     let instructions: String
+    
+//    enum CodingKeys: String, CodingKey{
+//        case
+//
+//
+//    }
 }
 
 // TODO: make enum of CodingKey for id, title, sourceUrl, image, summary : like in SearchRecipes

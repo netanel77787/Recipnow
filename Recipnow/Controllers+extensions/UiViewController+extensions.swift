@@ -77,6 +77,30 @@ extension UserValidation{
     
 }
 
+// protocol #3
+protocol SignOut{
+    
+}
+
+extension SignOut{
+    
+}
+
+extension UIViewController: SignOut{
+    func signOut(){
+        let action = UIAction { _ in
+              AppAuth.shared.signOut()
+          }
+
+          let signOutBBI =  UIBarButtonItem(title: "Sign Out", image: nil, primaryAction: action, menu: .none)
+
+          navigationItem.leftBarButtonItem = signOutBBI
+
+    }
+}
+
+
+
 extension UIViewController: ShowHUD{}
 
 extension RegisterViewController: UserValidation{}

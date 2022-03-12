@@ -7,20 +7,34 @@
 
 import UIKit
 import FirebaseAuth
+import Combine
 
 class IdeasCollectionViewController: UICollectionViewController {
     
+    var ideaRecipes: [IRecipe] = []
+    
+    var subscriptions: Set<AnyCancellable> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        let action = UIAction { _ in
-            AppAuth.shared.signOut()
-        }
         
-        let signOutBBI =  UIBarButtonItem(title: "Sign Out", image: nil, primaryAction: action, menu: .none)
+        signOut()
+        shuffle()
         
-        navigationItem.leftBarButtonItem = signOutBBI
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
+        RecipeIdeaApi.shared.requestIdeas().sink { completion in
+            print("Succeed")
+        } receiveValue: {[weak self] recipes in
+            if let recipes = recipes{
+                self?.ideaRecipes = recipes.results
+                
+                self?.collectionView.reloadData()
+               
+            }
+        }.store(in: &subscriptions)
+
 //        FirebaseManager.shared.getFavorites { recipes  in
 //            for recipe in recipes {
 //                print(recipe)
@@ -30,54 +44,65 @@ class IdeasCollectionViewController: UICollectionViewController {
     
     
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-    
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return ideaRecipes.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
+        let recipe = ideaRecipes[indexPath.row]
         // Configure the cell
+        if let cell = cell as? IdeasCollectionViewCell{
+            cell.populate(with: recipe)
+        }
         
         return cell
     }
     
-    // MARK: UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
+                
+        let recipe = ideaRecipes[indexPath.item]
+        
+        self.performSegue(withIdentifier: "details", sender: recipe)
+        
+        
+    }
     
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment this method to specify if the specified item should be selected
-     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    /*
-     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-     return false
-     }
-     
-     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-     
-     }
-     */
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard let selectedRecipe = sender as? IRecipe else {return}
+
+        
+        if segue.identifier == "details"{
+            
+            guard let dest = segue.destination as? IdeaDetailsViewController else {return}
+                
+            dest.label.text = selectedRecipe.title
+            
+        }
+    }
+}
+
+
+extension IdeasCollectionViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 300)
+    }
+}
+
+extension IdeasCollectionViewController{
+    func shuffle(){
+        let action = UIAction {[weak self] _ in
+            self?.ideaRecipes.shuffle()
+            self?.collectionView.reloadData()
+          }
+
+          let shuffleBBI =  UIBarButtonItem(title: "Shuffle", image: nil, primaryAction: action, menu: .none)
+
+          navigationItem.rightBarButtonItem = shuffleBBI
+    }
 }
