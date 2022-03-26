@@ -4,10 +4,18 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Recipnow.xcscheme_^#shared#^_</key>
+		<key>Recipnow.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>21</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>E336B6A527D5A8B500DC8548</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

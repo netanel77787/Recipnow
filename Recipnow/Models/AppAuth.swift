@@ -8,21 +8,23 @@
 import Foundation
 import FirebaseAuth
 
-class AppAuth{
+class AppAuth: ShowHUD{
     static let shared = AppAuth()
     private init(){}
     
     func login(email: String, password: String, callback: FireAuthCallback){
         Auth.auth().signIn(withEmail: email, password: password, completion: callback)
+        
     }
     
     func register(email: String, password: String, callback: FireAuthCallback){
         Auth.auth().createUser(withEmail: email, password: password, completion: callback)
+    
     }
     
     func signOut(){
         try? Auth.auth().signOut()
-        Router.shared.determineRootViewController()
+        Router.shared.loginDetermineRootViewController()
     }
 }
 

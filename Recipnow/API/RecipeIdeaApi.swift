@@ -11,11 +11,9 @@ import Combine
 struct RecipeIdeaApi{
     static let shared = RecipeIdeaApi()
     
-    private init(){
-        
-    }
+    private init(){}
 
-    var address = "https://api.spoonacular.com/recipes/complexSearch?apiKey=3bc51e3a93c44312b287363a0cae0d62&number=100"
+    var address = "https://api.spoonacular.com/recipes/complexSearch?apiKey=0ca8b4c1463d4bc4b100d25ace36a764&number=200"
     
     func requestIdeas()-> AnyPublisher<RecipeIdea?, URLError>{
         

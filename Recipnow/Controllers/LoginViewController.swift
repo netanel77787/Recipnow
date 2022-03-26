@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
 
     
     @IBOutlet weak var togglePasswordLabel: UILabel!
+    
     @IBAction func showPasswordSwitch(_ sender: UISwitch) {
         passwordTextField.isSecureTextEntry = !sender.isOn
         togglePasswordLabel.text = sender.isOn ? "Hide Password" : "Show Password"
@@ -39,17 +40,24 @@ class LoginViewController: UIViewController {
               let email = emailTextField.text,
               let password = passwordTextField.text else {return}
         
-        sender.isEnabled = false
         showProgress(title: "Signing you in")
         
-        AppAuth.shared.login(email: email, password: password, callback: callback(_:_:))
+        AppAuth.shared.login(email: email, password: password, callback: loginCallback(_:_:))
+        
+//        if Router.shared.isUserLoggedIn == true{
+//            showSuccess(title: "Signed in successfully")
+//            
+//        }
+ 
       
         
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        passwordTextField.disableAutoFill()
+        emailTextField.disableAutoFill()
         // Do any additional setup after loading the view.
     }
     

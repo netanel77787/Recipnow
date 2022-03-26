@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Combine
+import SDWebImage
 
 class IdeasCollectionViewController: UICollectionViewController {
     
@@ -25,7 +26,12 @@ class IdeasCollectionViewController: UICollectionViewController {
         collectionView.dataSource = self
         
         RecipeIdeaApi.shared.requestIdeas().sink { completion in
-            print("Succeed")
+            switch completion{
+            case .finished:
+                print("Ideas Succeeded")
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
         } receiveValue: {[weak self] recipes in
             if let recipes = recipes{
                 self?.ideaRecipes = recipes.results
@@ -42,7 +48,7 @@ class IdeasCollectionViewController: UICollectionViewController {
 //        }
     }
     
-    
+   
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
@@ -62,8 +68,7 @@ class IdeasCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
-                
+        
         let recipe = ideaRecipes[indexPath.item]
         
         self.performSegue(withIdentifier: "details", sender: recipe)
@@ -80,9 +85,15 @@ class IdeasCollectionViewController: UICollectionViewController {
         if segue.identifier == "details"{
             
             guard let dest = segue.destination as? IdeaDetailsViewController else {return}
-                
-            dest.label.text = selectedRecipe.title
             
+    
+                
+            dest.selectedTitle = selectedRecipe.title
+            dest.selectedID = String(selectedRecipe.id)
+            
+//            dest.selectedImage = selectedRecipe.image?.baseURL
+            
+            dest.selectedImage = UIImage(contentsOfFile: selectedRecipe.image?.absoluteURL.path ?? "bye" )
         }
     }
 }

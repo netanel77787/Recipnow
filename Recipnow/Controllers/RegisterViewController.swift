@@ -18,6 +18,12 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var togglePasswordLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        passwordTextField.disableAutoFill()
+        emailTextField.disableAutoFill()
+    }
+    
     @IBAction func showPasswordSwitch(_ sender: UISwitch) {
         passwordTextField.isSecureTextEntry = !sender.isOn
         togglePasswordLabel.text = sender.isOn ? "Hide Password" : "Show Password"
@@ -29,10 +35,15 @@ class RegisterViewController: UIViewController {
               let email = emailTextField.text,
               let password = passwordTextField.text else {return}
         
-        sender.isEnabled = false
-        showProgress(title: "Signing you in")
+        showProgress(title: "Signing up")
         
-        AppAuth.shared.register(email: email, password: password, callback: callback(_:_:))
+        AppAuth.shared.register(email: email, password: password, callback: registerCallback(_:_:))
+        
+//        if Router.shared.isUserLoggedIn == true{
+//        showSuccess(title: "User added successfully")
+//        }
+//
+        
     }
     
     

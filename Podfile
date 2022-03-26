@@ -7,13 +7,17 @@ target 'Recipnow' do
 
   # Pods for Recipnow
   
-  pod 'Firebase/Analytics'
+  
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'Firebase/Analytics'
+ 
   pod 'Firebase/Storage'
   
   pod 'FirebaseUI/Storage'
   pod 'PKHUD'
 
 end
+
+

@@ -18,6 +18,8 @@ class IdeasCollectionViewCell: UICollectionViewCell {
         idLabel.text = String(recipe.id)
         nameLabel.text = recipe.title
         
+        
+        
         image.sd_setImage(with: recipe.image,
                           placeholderImage: UIImage(systemName: "photo"))
     }

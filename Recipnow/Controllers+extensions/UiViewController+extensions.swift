@@ -5,7 +5,7 @@
 //  Created by Netanel Mantsoor on 05/03/2022.
 //
 
-import Foundation
+
 import PKHUD
 import UIKit
 import FirebaseAuth
@@ -65,14 +65,25 @@ extension UserValidation{
         return true
     }
     
-    func callback(_ result: AuthDataResult?,_ err: Error?){
+    func registerCallback(_ result: AuthDataResult?,_ err: Error?){
         
         if let err = err {
             showError(title: "Error", subtitle: "\(err.localizedDescription)")
             return
         }
-        showSuccess(title: "Welcome")
-        Router.shared.determineRootViewController()
+        Router.shared.registerDetermineRootViewController()
+        
+    }
+    
+    func loginCallback(_ result: AuthDataResult?,_ err: Error?){
+        
+        if let err = err {
+            showError(title: "Error", subtitle: "\(err.localizedDescription)")
+            return
+        }
+       
+        Router.shared.loginDetermineRootViewController()
+        
     }
     
 }
@@ -93,9 +104,18 @@ extension UIViewController: SignOut{
           }
 
           let signOutBBI =  UIBarButtonItem(title: "Sign Out", image: nil, primaryAction: action, menu: .none)
+        navigationItem.leftBarButtonItem = signOutBBI
+    }
+}
 
-          navigationItem.leftBarButtonItem = signOutBBI
 
+extension  UITextField {
+    func disableAutoFill() {
+        if #available(iOS 12, *) {
+            textContentType = .oneTimeCode
+        } else {
+            textContentType = .init(rawValue: "")
+        }
     }
 }
 
