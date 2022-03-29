@@ -18,9 +18,10 @@ class IdeasCollectionViewCell: UICollectionViewCell {
         idLabel.text = String(recipe.id)
         nameLabel.text = recipe.title
         
+        guard let url = URL(string: recipe.image ) else {return}
         
         
-        image.sd_setImage(with: recipe.image,
+        image.sd_setImage(with: url,
                           placeholderImage: UIImage(systemName: "photo"))
     }
 }

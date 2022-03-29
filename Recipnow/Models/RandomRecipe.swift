@@ -13,12 +13,11 @@ struct RandomRecipe: Decodable{
 }
 
 struct RRecipe: Decodable{
-    let sourceName: String
     let id: Int
     let title: String
     let readyInMinutes: Int
     let sourceUrl: String
-    let image: String
+    let image: URL
     let summary: String
     let instructions: String
     

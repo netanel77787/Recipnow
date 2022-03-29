@@ -10,9 +10,11 @@ import Combine
 
 class SearchCollectionViewController: UICollectionViewController {
    
-    var results = [Results]()
+//    var results = [Results]()
     
     var recipes: [SRecipe] = []
+    
+    
     
     var subscriptions: Set<AnyCancellable> = []
 
@@ -33,24 +35,55 @@ class SearchCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
+         let image = recipes[indexPath.item].image
+        
         let recipe = recipes[indexPath.item]
-        
-        let address = results[indexPath.item].results
-        
-//        let id = recipes[indexPath.row].id
-//
-//        let result = results[indexPath.item]
         
         // Configure the cell
         if let cell = cell as? SearchCollectionViewCell{
-//            guard let image = recipes[indexPath.row].image else {return UICollectionViewCell()}
-//
-//            let imageAddress = image
-//            cell.addressPopulate(address: recipe)
-            cell.populate(with: recipe)
+
+            cell.populate(with: recipe, address: image ?? "Failed to get search Image")
         }
         return cell
     }
+    
+    
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//        let recipe = recipes[indexPath.item]
+//        
+//        self.performSegue(withIdentifier: "details", sender: recipe)
+//        
+//        
+//    }
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        super.prepare(for: segue, sender: sender)
+//      
+//        if segue.identifier == "details"{
+//            
+//            guard let selectedRecipe = sender as? SRecipe else {return}
+//            
+//            guard let dest = segue.destination as? SearchDetailsViewController else {return}
+//            
+//            dest.selectedName = selectedRecipe.name
+//            dest.selectedID = String(selectedRecipe.id)
+//            
+//            guard let url = URL(string: selectedRecipe.image ?? "") else {return}
+//
+//            URLSession.shared.dataTask(with: url) { data, _, err in
+//                guard let data = data
+//                else {
+//                    return
+//                }
+//               
+//                let image = UIImage(data: data)
+//                    dest.selectedImage = image
+//               
+//            }.resume()
+//           
+//        }
+//    }
 
 }
 
@@ -82,9 +115,10 @@ extension SearchCollectionViewController: UISearchResultsUpdating{
                     print(err)
                 }
             } receiveValue: {[weak self]  result in
-
-                self?.results = result.searchResults
+                    
+                self?.recipes = result.searchResults[0].results
                 self?.collectionView.reloadData()
+
                 print(result)
          
             }.store(in: &subscriptions)
@@ -96,6 +130,6 @@ extension SearchCollectionViewController: UISearchResultsUpdating{
 
 extension SearchCollectionViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 400, height: 400)
+        return CGSize(width: 500, height: 500)
     }
 }

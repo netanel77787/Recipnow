@@ -20,7 +20,7 @@ struct SearchRecipesApi{
     
     func requestSearch(query: String)-> AnyPublisher<SearchRecipes, Error>{
         
-            let address = "https://api.spoonacular.com/food/search?query=\(query)&number=1&apiKey=0ca8b4c1463d4bc4b100d25ace36a764"
+            let address = "https://api.spoonacular.com/food/search?query=\(query)&apiKey=0ca8b4c1463d4bc4b100d25ace36a764"
         
         let url = URL(string: address)!
         

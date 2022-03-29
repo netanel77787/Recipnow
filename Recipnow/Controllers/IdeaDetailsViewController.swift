@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+
 class IdeaDetailsViewController: UIViewController {
     
     var selectedTitle: String?
@@ -16,7 +17,7 @@ class IdeaDetailsViewController: UIViewController {
     var selectedImage: UIImage?
     
     @IBOutlet weak var ideaIDLabel: UILabel!
-
+    
     @IBOutlet weak var ideaTitleLabel: UILabel!
     
     @IBOutlet weak var IdeaImageView: UIImageView!
@@ -27,24 +28,17 @@ class IdeaDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         guard let selectedTitle = selectedTitle,
-        let selectedID = selectedID
+              let selectedID = selectedID,
+              let image = selectedImage
         else {
             return
         }
         
-
-
         ideaTitleLabel.text = selectedTitle
         ideaIDLabel.text = selectedID
         
-        IdeaImageView.image = selectedImage
+        IdeaImageView.image = image
         
-        
-        
-        // Do any additional setup after loading the view.
     }
     
-
-    
-
 }

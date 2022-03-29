@@ -78,22 +78,29 @@ class IdeasCollectionViewController: UICollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
-        guard let selectedRecipe = sender as? IRecipe else {return}
-
-        
+      
         if segue.identifier == "details"{
+            
+            guard let selectedRecipe = sender as? IRecipe else {return}
             
             guard let dest = segue.destination as? IdeaDetailsViewController else {return}
             
-    
-                
             dest.selectedTitle = selectedRecipe.title
             dest.selectedID = String(selectedRecipe.id)
-            
-//            dest.selectedImage = selectedRecipe.image?.baseURL
-            
-            dest.selectedImage = UIImage(contentsOfFile: selectedRecipe.image?.absoluteURL.path ?? "bye" )
+    
+            guard let url = URL(string: selectedRecipe.image) else {return}
+
+            URLSession.shared.dataTask(with: url) { data, _, err in
+                guard let data = data
+                else {
+                    return
+                }
+               
+                let image = UIImage(data: data)
+                    dest.selectedImage = image
+               
+            }.resume()
+           
         }
     }
 }
