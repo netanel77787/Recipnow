@@ -72,7 +72,7 @@ extension UserValidation{
             return
         }
         Router.shared.registerDetermineRootViewController()
-        
+        AppAuth.shared.signOut()
     }
     
     func loginCallback(_ result: AuthDataResult?,_ err: Error?){

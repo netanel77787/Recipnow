@@ -7,39 +7,61 @@
 
 import UIKit
 import SDWebImage
+import Combine
 
 class RandomCollectionViewCell: UICollectionViewCell {
+    
+    var subscriptions: Set<AnyCancellable> = []
     
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readyMinutesLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var summaryLabel: UILabel!
-    @IBOutlet weak var instructionsLabel: UILabel!
+//    @IBOutlet weak var summaryLabel: UILabel!
+//    @IBOutlet weak var instructionsLabel: UILabel!
     
-    @IBAction func webButton(_ sender: UIButton) {
-        
-    }
+ 
     
     @IBAction func favoritesButton(_ sender: UIButton) {
         
     }
     
-    func populate(with recipe: RRecipe){
+    func populate(with recipe: RRecipe, address: String){
         let minutes = " Minutes making"
         
-        idLabel.text = String(recipe.id)
+        guard let id = recipe.id,
+              let title = recipe.title,
+              let readyMinutes = recipe.readyInMinutes
         
-        titleLabel.text = recipe.title
+        else {return}
         
-        readyMinutesLabel.text = String(recipe.readyInMinutes) + "\(minutes)"
+        idLabel.text = String(id)
         
-        imageView.sd_setImage(with: recipe.image,
-                          placeholderImage: UIImage(systemName: "photo"))
+        titleLabel.text = title
         
-        summaryLabel.text = recipe.summary
+        readyMinutesLabel.text = String(readyMinutes) + "\(minutes)"
         
-        instructionsLabel.text = recipe.instructions
+        guard let url = URL(string: address) else {return}
+        
+        URLSession.shared.dataTaskPublisher(for: url)
+            .receive(on: DispatchQueue.main).sink { comp in
+                switch comp {
+                case .finished:
+                    print("We have search")
+                case .failure(let err):
+                    print(err)
+                }
+        } receiveValue: { data, res in
+            let image = UIImage(data: data)
+            self.imageView.image = image
+        }.store(in: &subscriptions)
+
+
     }
+    
+
+        
+        
+    
     
 }

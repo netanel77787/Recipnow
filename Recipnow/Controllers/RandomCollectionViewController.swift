@@ -40,6 +40,50 @@ class RandomCollectionViewController: UICollectionViewController {
         }.store(in: &subscriptions)
 
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let recipe = randomRecipes[indexPath.item]
+        
+        self.performSegue(withIdentifier: "details", sender: recipe)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "details"{
+            let minutes = " Minutes making"
+            
+            guard let selectedRecipe = sender as? RRecipe else {return}
+            
+            guard let dest = segue.destination as? RandomDetailsViewController else {return}
+            
+            guard let id = selectedRecipe.id else {return}
+            
+            guard let readyMinutes = selectedRecipe.readyInMinutes else {return}
+            
+            dest.selectedTitle = selectedRecipe.title
+            dest.selectedID =  "\(String(describing: id))"
+            dest.selectedSummary = selectedRecipe.summary
+            dest.selectedInstructions = selectedRecipe.instructions
+            dest.selectedMinutes =  "\(String(describing: readyMinutes))" + "\(minutes)"
+            
+            guard let url = URL(string: selectedRecipe.image ?? "Cannot get recent image search") else {return}
+
+            URLSession.shared.dataTask(with: url) { data, _, err in
+                guard let data = data
+                else {
+                    return
+                }
+               
+                let image = UIImage(data: data)
+                    dest.selectedImage = image
+               
+            }.resume()
+           
+        }
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
@@ -51,8 +95,10 @@ class RandomCollectionViewController: UICollectionViewController {
     
         let recipe = randomRecipes[indexPath.item]
         
+        let address = randomRecipes[indexPath.item].image
+        
         if let cell = cell as? RandomCollectionViewCell{
-            cell.populate(with: recipe)
+            cell.populate(with: recipe, address: address ?? "Failed to get random Image")
         }
     
         return cell
@@ -64,7 +110,7 @@ class RandomCollectionViewController: UICollectionViewController {
 
 extension RandomCollectionViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 400, height: 400)
+        return CGSize(width: 500, height: 500)
     }
 }
 

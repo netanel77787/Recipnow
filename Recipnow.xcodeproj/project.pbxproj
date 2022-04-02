@@ -27,6 +27,7 @@
 		E342B4AB27D705B600ADE9AB /* AppAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AA27D705B600ADE9AB /* AppAuth.swift */; };
 		E342B4AD27D7311300ADE9AB /* IdeasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */; };
 		E36ACF0227EF524600D0B6D7 /* RandomRecipeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36ACF0127EF524600D0B6D7 /* RandomRecipeApi.swift */; };
+		E381799727F7B75E006BB493 /* RandomDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E381799627F7B75E006BB493 /* RandomDetailsViewController.swift */; };
 		E3F3768027EF635D004BB53F /* RandomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F3767F27EF635D004BB53F /* RandomCollectionViewCell.swift */; };
 		E3F91E5027D7461A00A6C1D6 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */; };
 		E3F91E5527D882C800A6C1D6 /* RecipeIdea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */; };
@@ -66,6 +67,7 @@
 		E342B4AA27D705B600ADE9AB /* AppAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuth.swift; sourceTree = "<group>"; };
 		E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasCollectionViewController.swift; sourceTree = "<group>"; };
 		E36ACF0127EF524600D0B6D7 /* RandomRecipeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeApi.swift; sourceTree = "<group>"; };
+		E381799627F7B75E006BB493 /* RandomDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDetailsViewController.swift; sourceTree = "<group>"; };
 		E3F3767F27EF635D004BB53F /* RandomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIdea.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */,
 				E3F91E6727DC847400A6C1D6 /* IdeaDetailsViewController.swift */,
 				E342B49E27D5B1CB00ADE9AB /* RandomCollectionViewController.swift */,
+				E381799627F7B75E006BB493 /* RandomDetailsViewController.swift */,
 				E3F91E6927DCB8B500A6C1D6 /* SearchCollectionViewController.swift */,
 				E3239D0527F34ADC0017FD34 /* SearchDetailsViewController.swift */,
 			);
@@ -349,6 +352,7 @@
 				E342B49D27D5B19100ADE9AB /* Router.swift in Sources */,
 				E3F91E6A27DCB8B500A6C1D6 /* SearchCollectionViewController.swift in Sources */,
 				E336B6B427D5A8B600DC8548 /* Recipnow.xcdatamodeld in Sources */,
+				E381799727F7B75E006BB493 /* RandomDetailsViewController.swift in Sources */,
 				E342B4A527D5B1DF00ADE9AB /* RegisterViewController.swift in Sources */,
 				E32D562127DCD0A900415CBD /* SearchCollectionViewCell.swift in Sources */,
 				E3F91E5F27DA02EC00A6C1D6 /* FirebaseModel.swift in Sources */,
