@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SDWebImage
 
 class SearchCollectionViewCell: UICollectionViewCell {
     
@@ -44,10 +45,10 @@ class SearchCollectionViewCell: UICollectionViewCell {
    
         idLabel.text = String(id)
         nameLabel.text = name
-        contentLabel.text = content
-        
+        contentLabel.attributedText = content.htmlToAttributedString
+         
         guard let url = URL(string: address) else {return}
-        
+
         URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.main).sink { comp in
                 switch comp {

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class IdeaDetailsViewController: UIViewController {
     
@@ -25,9 +24,22 @@ class IdeaDetailsViewController: UIViewController {
     
     @IBOutlet weak var IdeaImageView: UIImageView!
     
-  
-    @IBAction func goToSearch(_ sender: UIButton) {
-        
+    
+    @IBAction func searchRecipe(_ sender: UIButton) {
+        if let tabBarController = tabBarController {
+            tabBarController.selectedIndex = 2
+            if let searchNavController =  tabBarController.viewControllers?[2] as? UINavigationController {
+            
+                if let searchVC = searchNavController.viewControllers.first as? SearchCollectionViewController {
+                    if searchVC.preSearchText != nil {
+                        searchVC.preSearch(with: selectedTitle)
+                    }else {
+                        searchVC.preSearchText = selectedTitle
+                    }
+             
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -44,33 +56,8 @@ class IdeaDetailsViewController: UIViewController {
         ideaIDLabel.text = selectedID
         
         IdeaImageView.image = image
-        
-      
-        
+       
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
-  
-        if segue.identifier == "search"{
-
-            guard let selectedRecipe = sender as? UIButton else {return}
-
-            guard let dest = segue.destination as? SearchCollectionViewController else {return}
-
-            dest.title = "bye"
-            
-            dest.labelText = "HI"
-            
-            dest.search.searchBar.placeholder = "DDD"
-            
-            dest.search.navigationController?.navigationItem.searchController?.searchBar.placeholder = "DASDAD"
-
-            dest.navigationItem.searchController?.searchBar.placeholder = "Hello"
-        }
-        
- 
-  
     
-}
 }

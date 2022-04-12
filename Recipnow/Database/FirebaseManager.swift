@@ -5,10 +5,10 @@
 //  Created by Netanel Mantsoor on 08/03/2022.
 //
 
-import Foundation
-import FirebaseDatabase
-import FirebaseAuth
-
+//import Foundation
+//import FirebaseDatabase
+//import FirebaseAuth
+//
 //struct Recipe {
 //    
 //    var x:String?
@@ -42,17 +42,19 @@ import FirebaseAuth
 //    }
 //}
 //
+//
+//
 //class FirebaseManager  {
 //    
 //    static let shared: FirebaseManager = FirebaseManager()
-//    private let favoritesPath:DatabaseReference = Database.database().reference(withPath: "Favorites")
+//    private let favoritesPath: DatabaseReference = Database.database().reference(withPath: "Favorites")
 //    private init() {}
 //    
 //    
-//    func addFavoriteRecipe(recipe:Recipe) {
+//    func addFavoriteRecipe(recipe:RRecipe) {
 //        if let uid = Auth.auth().currentUser?.uid {
 //            favoritesPath.child(uid).childByAutoId()
-////                .setValue(recipe.toDict())
+//                .setValue(recipe.toDict())
 //        }
 //    }
 //    

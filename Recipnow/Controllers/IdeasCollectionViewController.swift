@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 import Combine
-import SDWebImage
 
 class IdeasCollectionViewController: UICollectionViewController {
     
@@ -25,7 +24,9 @@ class IdeasCollectionViewController: UICollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        RecipeIdeaApi.shared.requestIdeas().sink { completion in
+        RecipeIdeaApi.shared.requestIdeas()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
             switch completion{
             case .finished:
                 print("Ideas Succeeded")
@@ -59,9 +60,11 @@ class IdeasCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         let recipe = ideaRecipes[indexPath.row]
+        
+        let address = ideaRecipes[indexPath.row].image
         // Configure the cell
         if let cell = cell as? IdeasCollectionViewCell{
-            cell.populate(with: recipe)
+            cell.populate(with: recipe, address: address ?? "failed to get ideas")
         }
         
         return cell
@@ -85,10 +88,12 @@ class IdeasCollectionViewController: UICollectionViewController {
             
             guard let dest = segue.destination as? IdeaDetailsViewController else {return}
             
+            guard let id = selectedRecipe.id else {return}
+            
             dest.selectedTitle = selectedRecipe.title
-            dest.selectedID = String(selectedRecipe.id)
+            dest.selectedID = String(describing: id)
     
-            guard let url = URL(string: selectedRecipe.image) else {return}
+            guard let url = URL(string: selectedRecipe.image!) else {return}
 
             URLSession.shared.dataTask(with: url) { data, _, err in
                 guard let data = data
@@ -98,9 +103,7 @@ class IdeasCollectionViewController: UICollectionViewController {
                
                 let image = UIImage(data: data)
                     dest.selectedImage = image
-               
-            }.resume()
-           
+               }.resume()
         }
     }
 }
@@ -119,7 +122,7 @@ extension IdeasCollectionViewController{
             self?.collectionView.reloadData()
           }
 
-          let shuffleBBI =  UIBarButtonItem(title: "Shuffle", image: nil, primaryAction: action, menu: .none)
+          let shuffleBBI =  UIBarButtonItem(title: "Mix", image: UIImage(systemName: "repeat"), primaryAction: action, menu: .none)
 
           navigationItem.rightBarButtonItem = shuffleBBI
     }

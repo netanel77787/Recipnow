@@ -27,13 +27,16 @@ class SearchDetailsViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func webSearch(_ sender: UIButton) {
-      
-        guard let webAddress = recipe?.link,
-                     let url = URL(string: webAddress) else {return}
-       
-               let sfvc = SFSafariViewController(url: url)
-       
-              present(sfvc, animated: true)
+
+        let webaddress = recipe?.link?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        guard
+            let url = URL(string: webaddress!)
+        else {return}
+
+       let sfvc = SFSafariViewController(url: url)
+
+        navigationController?.pushViewController(sfvc, animated: true)
     }
     
     

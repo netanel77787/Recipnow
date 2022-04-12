@@ -14,31 +14,38 @@ class RandomCollectionViewController: UICollectionViewController {
     
     var subscriptions : Set<AnyCancellable> = []
     
+     func reloadItem() {
+        RandomRecipeApi.shared.randomRequest()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion{
+                    
+                case .finished:
+                    print("Randoms succedeed")
+                case .failure(_):
+                    print("Randoms failed")
+                }
+            } receiveValue: { recipes in
+                if let recipes = recipes{
+                    self.randomRecipes = recipes.recipes
+                    self.collectionView.reloadData()
+                }
+                
+                
+            }.store(in: &subscriptions)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
    
         
         reloadRandom()
+        returnRandom()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        RandomRecipeApi.shared.randomRequest()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-            switch completion{
-                
-            case .finished:
-                print("Randoms succedeed")
-            case .failure(_):
-                print("Randoms failed")
-            }
-        } receiveValue: { recipes in
-            if let recipes = recipes{
-                self.randomRecipes = recipes.recipes
-                self.collectionView.reloadData()
-            }
-            
-         
-        }.store(in: &subscriptions)
-
+        reloadItem()
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -53,21 +60,23 @@ class RandomCollectionViewController: UICollectionViewController {
         super.prepare(for: segue, sender: sender)
         
         if segue.identifier == "details"{
-            let minutes = " Minutes making"
+            let minutes = " Minutes to prepare this recipe"
             
-            guard let selectedRecipe = sender as? RRecipe else {return}
+            guard let selectedRecipe = sender as? RRecipe,
+                  let dest = segue.destination as? RandomDetailsViewController,
+                  let id = selectedRecipe.id,
+                  let readyMinutes = selectedRecipe.readyInMinutes
+            else {return}
             
-            guard let dest = segue.destination as? RandomDetailsViewController else {return}
+          
             
-            guard let id = selectedRecipe.id else {return}
-            
-            guard let readyMinutes = selectedRecipe.readyInMinutes else {return}
-            
-            dest.selectedTitle = selectedRecipe.title
+            dest.selectedTitle = selectedRecipe.name
             dest.selectedID =  "\(String(describing: id))"
-            dest.selectedSummary = selectedRecipe.summary
+            dest.selectedSummary = selectedRecipe.content
             dest.selectedInstructions = selectedRecipe.instructions
             dest.selectedMinutes =  "\(String(describing: readyMinutes))" + "\(minutes)"
+            
+            dest.recipe = selectedRecipe
             
             guard let url = URL(string: selectedRecipe.image ?? "Cannot get recent image search") else {return}
 
@@ -95,10 +104,10 @@ class RandomCollectionViewController: UICollectionViewController {
     
         let recipe = randomRecipes[indexPath.item]
         
-        let address = randomRecipes[indexPath.item].image
+        let imageAddress = randomRecipes[indexPath.item].image
         
         if let cell = cell as? RandomCollectionViewCell{
-            cell.populate(with: recipe, address: address ?? "Failed to get random Image")
+            cell.populate(with: recipe, address: imageAddress ?? "Failed to get random Image")
         }
     
         return cell
@@ -117,18 +126,27 @@ extension RandomCollectionViewController: UICollectionViewDelegateFlowLayout{
 extension RandomCollectionViewController{
     func reloadRandom(){
         let action = UIAction {[weak self] _ in
-            if let random = self?.randomRecipes.randomElement(){
-                self?.randomRecipes.remove(at: (self?.randomRecipes.count ?? 0)-1)
-             
-                self?.randomRecipes.append(random)
-                self?.randomRecipes.shuffle()
-                self?.collectionView.reloadData()
-            }
-            
+                self?.reloadItem()
+         
           }
 
-          let shuffleBBI =  UIBarButtonItem(title: "Reload", image: nil, primaryAction: action, menu: .none)
+          let reloadItemBBI =  UIBarButtonItem(title: "Reload recipe", image: UIImage(systemName: "arrow.clockwise"), primaryAction: action, menu: .none)
 
-          navigationItem.rightBarButtonItem = shuffleBBI
+          navigationItem.rightBarButtonItem = reloadItemBBI
+    }
+    
+   
+    
+    func returnRandom(){
+        let action = UIAction {[weak self] _ in
+            let ind =  IndexPath(item: 1, section: 0)
+           
+            
+
+          }
+
+          let returnItemBBI =  UIBarButtonItem(title: "Return recipe", image: UIImage(systemName: "return"), primaryAction: action, menu: .none)
+
+          navigationItem.leftBarButtonItem = returnItemBBI
     }
 }

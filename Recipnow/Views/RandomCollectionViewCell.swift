@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 import Combine
 
 class RandomCollectionViewCell: UICollectionViewCell {
@@ -27,10 +26,10 @@ class RandomCollectionViewCell: UICollectionViewCell {
     }
     
     func populate(with recipe: RRecipe, address: String){
-        let minutes = " Minutes making"
+        let minutes = " Minutes to prepare this recipe"
         
         guard let id = recipe.id,
-              let title = recipe.title,
+              let title = recipe.name,
               let readyMinutes = recipe.readyInMinutes
         
         else {return}
@@ -47,7 +46,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
             .receive(on: DispatchQueue.main).sink { comp in
                 switch comp {
                 case .finished:
-                    print("We have search")
+                    print("We have random item")
                 case .failure(let err):
                     print(err)
                 }

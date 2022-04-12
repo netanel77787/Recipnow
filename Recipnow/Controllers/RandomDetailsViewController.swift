@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SafariServices
 
 class RandomDetailsViewController: UIViewController {
+    
+    var recipe: RRecipe?
     
     var selectedTitle: String?
     
@@ -38,7 +41,15 @@ class RandomDetailsViewController: UIViewController {
     
    
     @IBAction func searchButton(_ sender: UIButton) {
+        let webaddress = recipe?.link?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
+        guard
+            let url = URL(string: webaddress!)
+        else {return}
+
+       let sfvc = SFSafariViewController(url: url)
+
+        navigationController?.pushViewController(sfvc, animated: true)
     }
     
     @IBAction func addToFavorites(_ sender: UIButton) {
@@ -64,12 +75,12 @@ class RandomDetailsViewController: UIViewController {
         readyMinutesLabel.text = minutes
         
         imageView.image = image
-        imageView.sizeToFit()
         
-        summaryLabel.text = summary
+        summaryLabel.attributedText = summary.htmlToAttributedString
         
-        instructionsLabel.text = instructions
-      
+        instructionsLabel.attributedText = instructions.htmlToAttributedString
+        summaryLabel.numberOfLines =  summary.count
+        instructionsLabel.numberOfLines =  instructions.count
     }
 
 
