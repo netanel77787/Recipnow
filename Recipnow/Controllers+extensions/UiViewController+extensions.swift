@@ -22,6 +22,10 @@ extension ShowHUD{
         HUD.flash(.labeledError(title: title, subtitle: subtitle), delay: 3)
     }
     
+    func showErrorDelay(title: String, subtitle: String? = nil,delay:CGFloat){
+        HUD.flash(.labeledError(title: title, subtitle: subtitle), delay: delay)
+    }
+    
     func showLabel(title: String){
         HUD.flash(.label(title), delay: 1)
     }

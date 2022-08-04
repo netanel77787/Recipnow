@@ -8,7 +8,15 @@
 import UIKit
 import Combine
 
+protocol RandomCollectionViewCellDelegate {
+    func showDetails(recipe:RRecipe)
+    func addToFavorites(recipe:RRecipe)
+    func errorAddingToFavorites(err:Error)
+}
+
 class RandomCollectionViewCell: UICollectionViewCell {
+    var recipe : RRecipe!
+    var delegate: RandomCollectionViewCellDelegate!
     
     var subscriptions: Set<AnyCancellable> = []
     
@@ -16,16 +24,24 @@ class RandomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readyMinutesLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-//    @IBOutlet weak var summaryLabel: UILabel!
-//    @IBOutlet weak var instructionsLabel: UILabel!
+
+    @IBOutlet weak var favImageView: UIImageView!
     
- 
+  
     
-    @IBAction func favoritesButton(_ sender: UIButton) {
-        
+    @IBAction func showDetailsAction(_ sender: Any) {
+        delegate.showDetails(recipe: recipe)
     }
-    
     func populate(with recipe: RRecipe, address: String){
+        self.recipe = recipe
+        if let gr = favImageView.gestureRecognizers,
+           gr.count > 0 {
+            for g in gr {
+                favImageView.removeGestureRecognizer(g)
+            }
+        }
+        favImageView.isUserInteractionEnabled = true
+        favImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addToFavorites)))
         let minutes = " Minutes to prepare this recipe"
         
         guard let id = recipe.id,
@@ -33,7 +49,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
               let readyMinutes = recipe.readyInMinutes
         
         else {return}
-        
+    
         idLabel.text = String(id)
         
         titleLabel.text = title
@@ -56,6 +72,23 @@ class RandomCollectionViewCell: UICollectionViewCell {
         }.store(in: &subscriptions)
 
 
+    }
+    
+    
+    @objc func addToFavorites(_ sender: Any) {
+    
+        FirebaseManager.addToUserFavorites(category: .random,
+                                           favorite: Favorite.init(name: recipe.name ?? "", recipeID: recipe.id ?? 0, image: recipe.image ?? "", link: recipe.link ?? "", content: recipe.content ?? "")) {[weak self] str, err in
+            if let err = err {
+                self?.delegate.errorAddingToFavorites(err: err)
+                return
+            }
+            if let str = str {
+                print(str)
+                self?.delegate.addToFavorites(recipe: self!.recipe)
+            }
+            
+        }
     }
     
 

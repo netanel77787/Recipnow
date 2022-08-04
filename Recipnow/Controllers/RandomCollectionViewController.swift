@@ -7,13 +7,25 @@
 
 import UIKit
 import Combine
+import FirebaseDatabase
 
-class RandomCollectionViewController: UICollectionViewController {
+class RandomCollectionViewController: UICollectionViewController,RandomCollectionViewCellDelegate {
 
+    func showDetails(recipe: RRecipe) {
+        self.performSegue(withIdentifier: "details", sender: recipe)
+    }
+    func addToFavorites(recipe: RRecipe) {
+        showSuccess(title: "")
+    }
+    func errorAddingToFavorites(err: Error) {
+
+        showError(title: err.localizedDescription)
+    }
     var randomRecipes: [RRecipe] = []
     
     var subscriptions : Set<AnyCancellable> = []
-    
+    var prev : RRecipe?
+    var nextRecipe : RRecipe?
      func reloadItem() {
         RandomRecipeApi.shared.randomRequest()
             .receive(on: DispatchQueue.main)
@@ -27,6 +39,15 @@ class RandomCollectionViewController: UICollectionViewController {
                 }
             } receiveValue: { recipes in
                 if let recipes = recipes{
+                    let r = recipes.recipes[0]
+                
+                        let fav = Favorite(name: r.name ?? "", recipeID: r.id ?? 0, image: r.image ?? "", link: r.link ?? "", content: r.content ?? "")
+
+                    Database.database()
+                            .reference(withPath: "Cache")
+                            .child("Random")
+                            .child(String(r.id!))
+                            .setValue(fav.dict)
                     self.randomRecipes = recipes.recipes
                     self.collectionView.reloadData()
                 }
@@ -37,24 +58,14 @@ class RandomCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
-        
+        reloadItem()
         reloadRandom()
         returnRandom()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        reloadItem()
-        
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let recipe = randomRecipes[indexPath.item]
-        
-        self.performSegue(withIdentifier: "details", sender: recipe)
-        
-    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -99,6 +110,8 @@ class RandomCollectionViewController: UICollectionViewController {
         return randomRecipes.count
     }
 
+    
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
     
@@ -107,7 +120,9 @@ class RandomCollectionViewController: UICollectionViewController {
         let imageAddress = randomRecipes[indexPath.item].image
         
         if let cell = cell as? RandomCollectionViewCell{
+            cell.delegate = self
             cell.populate(with: recipe, address: imageAddress ?? "Failed to get random Image")
+          
         }
     
         return cell
@@ -124,29 +139,47 @@ extension RandomCollectionViewController: UICollectionViewDelegateFlowLayout{
 }
 
 extension RandomCollectionViewController{
+    
+    
     func reloadRandom(){
         let action = UIAction {[weak self] _ in
-                self?.reloadItem()
-         
-          }
+            self?.prev = self?.randomRecipes[0]
+            self?.reloadItem()
+        }
 
           let reloadItemBBI =  UIBarButtonItem(title: "Reload recipe", image: UIImage(systemName: "arrow.clockwise"), primaryAction: action, menu: .none)
-
           navigationItem.rightBarButtonItem = reloadItemBBI
     }
     
    
     
     func returnRandom(){
-        let action = UIAction {[weak self] _ in
-            let ind =  IndexPath(item: 1, section: 0)
-           
-            
-
+        let actionPrev = UIAction {[weak self] _ in
+            if let prev = self?.prev {
+                self?.nextRecipe = self?.randomRecipes[0]
+                self?.randomRecipes = [prev]
+                self?.collectionView.reloadData()
+            }
+          }
+        
+        let actionNext = UIAction {[weak self] _ in
+            if let next = self?.nextRecipe {
+                self?.randomRecipes = [next]
+                self?.nextRecipe = nil
+                self?.collectionView.reloadData()
+            }else {
+                self?.showErrorDelay(title: "No next Recipe",delay: 1)
+            }
           }
 
-          let returnItemBBI =  UIBarButtonItem(title: "Return recipe", image: UIImage(systemName: "return"), primaryAction: action, menu: .none)
+          let returnItemBBI =  UIBarButtonItem(title: "Return recipe", image: UIImage(systemName: "return"), primaryAction: actionPrev, menu: .none)
 
-          navigationItem.leftBarButtonItem = returnItemBBI
+        
+        let returnItemBBIRight =  UIBarButtonItem(title: "Next recipe", image: UIImage(systemName: "return.right"), primaryAction: actionNext, menu: .none)
+
+        navigationItem.leftBarButtonItems = [returnItemBBI,returnItemBBIRight]
+   
     }
+    
+
 }

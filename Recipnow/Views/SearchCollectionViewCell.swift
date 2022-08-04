@@ -8,10 +8,19 @@
 import UIKit
 import Combine
 import SDWebImage
+import PKHUD
 
+
+protocol SearchCollectionViewCellDelegate {
+    func addedToFavorites(recipe:SRecipe)
+    func errorAddingToFavorites(err:Error)
+    func showDetails(recipe:SRecipe)
+}
 class SearchCollectionViewCell: UICollectionViewCell {
     
     
+    var recipe:SRecipe!
+    var delegate:SearchCollectionViewCellDelegate!
     var subscriptions: Set<AnyCancellable> = []
     
     @IBOutlet weak var idLabel: UILabel!
@@ -22,46 +31,60 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
     
- 
+    @IBOutlet weak var favImageView: UIImageView!
     
+
     
-    @IBAction func addToFavorites(_ sender: UIButton) {
+    @IBAction func detailsAction(_ sender: Any) {
+        delegate.showDetails(recipe: recipe)
+    }
+    @objc func addToFavorites(_ sender: Any) {
+        print("Adding to favorites..")
+        // adds to user favorites from cell click
+        FirebaseManager.addToUserFavorites(category: .search,
+                                           favorite: Favorite.init(name: recipe.name ?? "", recipeID: recipe.id ?? 0, image: recipe.image ?? "", link: recipe.link ?? "", content: recipe.content ?? "")) {[weak self] str, err in
+            if let err = err {
+                self?.delegate.errorAddingToFavorites(err: err)
+                return
+            }
+            if let str = str {
+                print(str)
+                self?.delegate.addedToFavorites(recipe: self!.recipe)
+            }
+            
+        }
     }
     
   
     override func prepareForReuse() {
         imageView.image = UIImage(systemName: "photo")
-
+        favImageView.isUserInteractionEnabled = true
         subscriptions.removeAll()
     }
+    
+    
 
     func populate(with recipe: SRecipe, address: String){
         
+        
+        if let gr = favImageView.gestureRecognizers,
+           gr.count > 0 {
+            for g in gr {
+                favImageView.removeGestureRecognizer(g)
+            }
+        }
+        self.recipe = recipe
+        favImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addToFavorites)))
         guard let id = recipe.id,
-              let name = recipe.name,
-              let content = recipe.content
+              let name = recipe.name
+              //let content = recipe.content
         
         else {return}
    
+        
         idLabel.text = String(id)
         nameLabel.text = name
-        contentLabel.attributedText = content.htmlToAttributedString
-         
-        guard let url = URL(string: address) else {return}
-
-        URLSession.shared.dataTaskPublisher(for: url)
-            .receive(on: DispatchQueue.main).sink { comp in
-                switch comp {
-                case .finished:
-                    print("We have search")
-                case .failure(let err):
-                    print(err)
-                }
-        } receiveValue: { data, res in
-            let image = UIImage(data: data)
-            self.imageView.image = image
-        }.store(in: &subscriptions)
-        
+        recipe.image?.downLoadImage(imageView: imageView, subs: &subscriptions)
         
     }
     

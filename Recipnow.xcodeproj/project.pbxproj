@@ -29,7 +29,10 @@
 		E342B4AB27D705B600ADE9AB /* AppAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AA27D705B600ADE9AB /* AppAuth.swift */; };
 		E342B4AD27D7311300ADE9AB /* IdeasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */; };
 		E36ACF0227EF524600D0B6D7 /* RandomRecipeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36ACF0127EF524600D0B6D7 /* RandomRecipeApi.swift */; };
+		E36B829E285378AA007366B8 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36B829D285378AA007366B8 /* Header.swift */; };
 		E381799727F7B75E006BB493 /* RandomDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E381799627F7B75E006BB493 /* RandomDetailsViewController.swift */; };
+		E3B0F90028366DCB00B8382E /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B0F8FF28366DCB00B8382E /* FavoriteCollectionViewCell.swift */; };
+		E3B260EC28536D70004937A4 /* String + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B260EB28536D70004937A4 /* String + extensions.swift */; };
 		E3F3768027EF635D004BB53F /* RandomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F3767F27EF635D004BB53F /* RandomCollectionViewCell.swift */; };
 		E3F91E5027D7461A00A6C1D6 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */; };
 		E3F91E5527D882C800A6C1D6 /* RecipeIdea.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */; };
@@ -70,7 +73,10 @@
 		E342B4AA27D705B600ADE9AB /* AppAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuth.swift; sourceTree = "<group>"; };
 		E342B4AC27D7311300ADE9AB /* IdeasCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeasCollectionViewController.swift; sourceTree = "<group>"; };
 		E36ACF0127EF524600D0B6D7 /* RandomRecipeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeApi.swift; sourceTree = "<group>"; };
+		E36B829D285378AA007366B8 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		E381799627F7B75E006BB493 /* RandomDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDetailsViewController.swift; sourceTree = "<group>"; };
+		E3B0F8FF28366DCB00B8382E /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		E3B260EB28536D70004937A4 /* String + extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + extensions.swift"; sourceTree = "<group>"; };
 		E3F3767F27EF635D004BB53F /* RandomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3F91E4F27D7461A00A6C1D6 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		E3F91E5427D882C800A6C1D6 /* RecipeIdea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIdea.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 				E3F91E6527DC621D00A6C1D6 /* IdeasCollectionViewCell.swift */,
 				E3F3767F27EF635D004BB53F /* RandomCollectionViewCell.swift */,
 				E32D562027DCD0A900415CBD /* SearchCollectionViewCell.swift */,
+				E3B0F8FF28366DCB00B8382E /* FavoriteCollectionViewCell.swift */,
+				E36B829D285378AA007366B8 /* Header.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				E342B4A627D5B54B00ADE9AB /* UiViewController+extensions.swift */,
+				E3B260EB28536D70004937A4 /* String + extensions.swift */,
 			);
 			path = "Controllers+extensions";
 			sourceTree = "<group>";
@@ -347,6 +356,7 @@
 			files = (
 				E304E0C7280124CA0074BB97 /* FavoritesCollectionViewController.swift in Sources */,
 				E3F91E5027D7461A00A6C1D6 /* FirebaseManager.swift in Sources */,
+				E36B829E285378AA007366B8 /* Header.swift in Sources */,
 				E342B4AD27D7311300ADE9AB /* IdeasCollectionViewController.swift in Sources */,
 				E3F91E5727D887FA00A6C1D6 /* RandomRecipe.swift in Sources */,
 				E3F91E6627DC621D00A6C1D6 /* IdeasCollectionViewCell.swift in Sources */,
@@ -367,10 +377,12 @@
 				E342B4A727D5B54B00ADE9AB /* UiViewController+extensions.swift in Sources */,
 				E3239D0627F34ADC0017FD34 /* SearchDetailsViewController.swift in Sources */,
 				E3F91E6427DC58CB00A6C1D6 /* RecipeIdeaApi.swift in Sources */,
+				E3B260EC28536D70004937A4 /* String + extensions.swift in Sources */,
 				E36ACF0227EF524600D0B6D7 /* RandomRecipeApi.swift in Sources */,
 				E342B4A127D5B1D300ADE9AB /* HomeLoginViewController.swift in Sources */,
 				E3F91E6827DC847400A6C1D6 /* IdeaDetailsViewController.swift in Sources */,
 				E304E0C5280110BB0074BB97 /* Favorite.swift in Sources */,
+				E3B0F90028366DCB00B8382E /* FavoriteCollectionViewCell.swift in Sources */,
 				E3F91E6E27DCC03D00A6C1D6 /* SearchRecipesApi.swift in Sources */,
 				E3F91E5527D882C800A6C1D6 /* RecipeIdea.swift in Sources */,
 			);

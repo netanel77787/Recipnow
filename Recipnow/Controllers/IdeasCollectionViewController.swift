@@ -61,10 +61,10 @@ class IdeasCollectionViewController: UICollectionViewController {
         
         let recipe = ideaRecipes[indexPath.row]
         
-        let address = ideaRecipes[indexPath.row].image
+        let imageAddress = ideaRecipes[indexPath.row].image
         // Configure the cell
         if let cell = cell as? IdeasCollectionViewCell{
-            cell.populate(with: recipe, address: address ?? "failed to get ideas")
+            cell.populate(with: recipe, address: imageAddress ?? "failed to get ideas")
         }
         
         return cell

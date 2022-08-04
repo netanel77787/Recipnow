@@ -6,11 +6,25 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 import Combine
 
-class SearchCollectionViewController: UICollectionViewController, UISearchControllerDelegate {
-   
-
+class SearchCollectionViewController: UICollectionViewController, UISearchControllerDelegate,
+SearchCollectionViewCellDelegate {
+    
+    
+    func addedToFavorites(recipe: SRecipe) {
+        showSuccess(title:"")
+    }
+    
+    func showDetails(recipe: SRecipe) {
+        self.performSegue(withIdentifier: "details", sender: recipe)
+    }
+    
+    func errorAddingToFavorites(err: Error) {
+        showError(title: err.localizedDescription)
+    }
     var searchRecipes: [SRecipe] = []
     var preSearchText: String?
     var subscriptions: Set<AnyCancellable> = []
@@ -47,25 +61,16 @@ class SearchCollectionViewController: UICollectionViewController, UISearchContro
         
         // Configure the cell
         if let cell = cell as? SearchCollectionViewCell{
-
+            cell.delegate  = self
             cell.populate(with: recipe, address: image ?? "Failed to get search Image")
         }
         return cell
     }
     
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let recipe = searchRecipes[indexPath.item]
-        
-        self.performSegue(withIdentifier: "details", sender: recipe)
-        
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "details"{
+        if segue.identifier == "details" {
             
             guard let selectedRecipe = sender as? SRecipe,
                     let dest = segue.destination as? SearchDetailsViewController,
@@ -75,6 +80,7 @@ class SearchCollectionViewController: UICollectionViewController, UISearchContro
            
             dest.selectedName = selectedRecipe.name
             dest.selectedID =  "\(String(describing: id))"
+            dest.selectedContent = selectedRecipe.content
 
             guard let url = URL(string: selectedRecipe.image ?? "Cannot get recent image search") else {return}
 
@@ -133,6 +139,16 @@ extension SearchCollectionViewController: UISearchResultsUpdating{
                     
                 self?.searchRecipes = result.searchResults[0].results
                 self?.collectionView.reloadData()
+                
+                
+                for r in self!.searchRecipes {
+                    Database.database()
+                        .reference(withPath: "Cache")
+                        .child("Search")
+                        .child(String(r.id!))
+                        .setValue(Favorite.init(name:r.name ?? "",recipeID:r.id ?? 0,image:r.image ?? "",link:r.link ?? "", content: r.content ?? "").dict)
+                }
+          
 
             }.store(in: &subscriptions)
 

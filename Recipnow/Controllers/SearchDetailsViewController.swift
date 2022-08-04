@@ -11,6 +11,8 @@ import SafariServices
 class SearchDetailsViewController: UIViewController {
     
     var recipe: SRecipe?
+    var recipeFav: Favorite?
+    
     
     var selectedName: String?
     
@@ -18,17 +20,22 @@ class SearchDetailsViewController: UIViewController {
     
     var selectedImage: UIImage?
     
+    var selectedContent: String?
+    
    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var idLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var contentLabel: UILabel!
+    
     @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func webSearch(_ sender: UIButton) {
 
-        let webaddress = recipe?.link?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let webaddress = (recipe?.link ?? recipeFav?.link)?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         guard
             let url = URL(string: webaddress!)
@@ -40,27 +47,34 @@ class SearchDetailsViewController: UIViewController {
     }
     
     
-    @IBAction func addToFavorites(_ sender: UIButton) {
-        
-    }
+ 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let selectedName = selectedName,
-              let selectedID = selectedID,
-              let image = selectedImage
-        else {
-            return
-        }
+        scrollView.contentSize = CGSize(width: 200 , height: 300)
+        
         
         idLabel.text = selectedID
         nameLabel.text = selectedName
         
-        imageView.image = image
+        imageView.image = selectedImage ?? UIImage(systemName: "photo")
         
-      
+        
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        let c = [contentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                 contentLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 300)]
+        NSLayoutConstraint.activate(c)
+        contentLabel.text = recipe?.content ?? recipeFav?.content
+        
+        let style = "\"font-size:18px;\""
+        
+        contentLabel.attributedText = ("<p style = \(style)>\(recipe?.content ?? recipeFav?.content)</p>").htmlToAttributedString
+        
+        if recipeFav != nil {
+            
+        }
       
     }
     

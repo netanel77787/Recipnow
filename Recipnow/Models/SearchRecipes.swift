@@ -19,6 +19,7 @@ struct Results: Decodable{
 struct SRecipe: Decodable{
     let id: Int?
     let name: String?
+    var isFavorite: Bool?
     let image: String?
     let link: String?
     let content: String?
