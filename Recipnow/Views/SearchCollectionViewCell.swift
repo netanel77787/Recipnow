@@ -35,9 +35,11 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
 
     
+    
     @IBAction func detailsAction(_ sender: Any) {
         delegate.showDetails(recipe: recipe)
     }
+    
     @objc func addToFavorites(_ sender: Any) {
         print("Adding to favorites..")
         // adds to user favorites from cell click
@@ -63,6 +65,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     }
     
     
+    
 
     func populate(with recipe: SRecipe, address: String){
         
@@ -83,9 +86,13 @@ class SearchCollectionViewCell: UICollectionViewCell {
    
         
         idLabel.text = String(id)
+        idLabel.textColor = .white
+        nameLabel.textColor = .white
         nameLabel.text = name
         recipe.image?.downLoadImage(imageView: imageView, subs: &subscriptions)
         
     }
     
 }
+
+

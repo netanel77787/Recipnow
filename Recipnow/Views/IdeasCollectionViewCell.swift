@@ -26,6 +26,10 @@ class IdeasCollectionViewCell: UICollectionViewCell {
         
         idLabel.text = String(id)
         nameLabel.text = title
+     
+        
+        idLabel.textColor = .white
+        nameLabel.textColor = .white
         
         guard let url = URL(string: address) else {return}
         

@@ -20,8 +20,14 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dow3") ?? UIImage(named: "systemImage"))!)
         passwordTextField.disableAutoFill()
         emailTextField.disableAutoFill()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     @IBAction func showPasswordSwitch(_ sender: UISwitch) {
@@ -39,11 +45,7 @@ class RegisterViewController: UIViewController {
         
         AppAuth.shared.register(email: email, password: password, callback: registerCallback(_:_:))
         
-//        if Router.shared.isUserLoggedIn == true{
-//        showSuccess(title: "User added successfully")
-//        }
-//
-        
+  
     }
     
     

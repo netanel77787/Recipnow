@@ -9,18 +9,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    /**
-     
-            Favorites:
-            lk2348sfsdsdfkjsbd2:
-        0: {
-     recipeName...
-        },
-     1: {
-     recipeName...
-        }
-     */
-    
+
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -31,6 +20,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func showPasswordSwitch(_ sender: UISwitch) {
         passwordTextField.isSecureTextEntry = !sender.isOn
+        
         togglePasswordLabel.text = sender.isOn ? "Hide Password" : "Show Password"
         
     }
@@ -44,21 +34,23 @@ class LoginViewController: UIViewController {
         
         AppAuth.shared.login(email: email, password: password, callback: loginCallback(_:_:))
         
-//        if Router.shared.isUserLoggedIn == true{
-//            showSuccess(title: "Signed in successfully")
-//            
-//        }
+
  
       
         
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         passwordTextField.disableAutoFill()
         emailTextField.disableAutoFill()
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor(patternImage: (UIImage(named: "dow3") ?? UIImage(named: "systemImage"))!)
     }
     
 

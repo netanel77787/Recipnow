@@ -20,17 +20,20 @@ class FavoritesCollectionViewController: UIViewController,
     
     func removedFromFavorites(recipe: Favorite) {
         if recipe.category == "Random" {
-        favoritesRandom.removeAll { f in
-            return f.recipeID == recipe.recipeID && f.name == recipe.name
-        }
+            favoritesRandom.removeAll { f in
+                return f.recipeID == recipe.recipeID && f.name == recipe.name
+            }
+            
         }else{
-        favoritesSearch.removeAll { f in
-            return f.recipeID == recipe.recipeID && f.name == recipe.name
-        }
+            favoritesSearch.removeAll { f in
+                return f.recipeID == recipe.recipeID && f.name == recipe.name
+            }
+            
         }
         collectionView.reloadData()
-        showSuccess(title: "")
+        showSuccess(title: "Remove succeeded")
     }
+    
     var subs = Set<AnyCancellable>()
     var favoritesSearch = [Favorite]()
     var favoritesRandom = [Favorite]()
@@ -54,16 +57,16 @@ class FavoritesCollectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         initSearch()
-        view.backgroundColor = .white
+        UINavigationBar().tintColor = .black
         view.addSubview(collectionView)
         let c  = [collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),   collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)]
         NSLayoutConstraint.activate(c)
         collectionView.register(Header.self,forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Header.id)
-      
+
    
     }
     
-    //
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // gets all the user favoirets from db to collection view
@@ -234,7 +237,7 @@ extension FavoritesCollectionViewController{
         search.delegate = self
    
         
-        search.searchBar.placeholder = "type recipe name to find it"
+        search.searchBar.placeholder = "What recipe you would like to find?"
         search.searchBar.tintColor = .white
         navigationItem.searchController = search
 

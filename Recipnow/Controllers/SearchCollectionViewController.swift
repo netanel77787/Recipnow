@@ -10,12 +10,12 @@ import FirebaseDatabase
 import FirebaseAuth
 import Combine
 
-class SearchCollectionViewController: UICollectionViewController, UISearchControllerDelegate,
+class SearchCollectionViewController: UICollectionViewController, UISearchControllerDelegate, UITextFieldDelegate,
 SearchCollectionViewCellDelegate {
     
     
     func addedToFavorites(recipe: SRecipe) {
-        showSuccess(title:"")
+        showSuccess(title:"Added successfully ")
     }
     
     func showDetails(recipe: SRecipe) {
@@ -33,10 +33,23 @@ SearchCollectionViewCellDelegate {
         super.viewDidLoad()
         initSearch()
         
+        collectionView.backgroundColor = .black
+        UINavigationBar().tintColor = .black
         collectionView.delegate = self
         collectionView.dataSource = self
         
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        view.endEditing(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     
     
     func preSearch(with text: String?) {
@@ -110,7 +123,7 @@ extension SearchCollectionViewController{
         
         search.delegate = self
         
-        search.searchBar.placeholder = "Please type recipe name to search"
+        search.searchBar.placeholder = "What recipe you would like to search?"
        
         search.searchBar.text = preSearchText
         

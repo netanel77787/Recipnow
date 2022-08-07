@@ -12,15 +12,10 @@ struct SearchRecipesApi{
  
     static let shared = SearchRecipesApi()
     
-    private init(){
-        
-    }
+    private init(){}
 
-  
-    
     func requestSearch(query: String)-> AnyPublisher<SearchRecipes, Error>{
 
-        
         let address = "https://api.spoonacular.com/food/search?query=\(query)&apiKey=0ca8b4c1463d4bc4b100d25ace36a764".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "Unable to get the search api correctly"
         
         let url = URL(string: address)!
@@ -29,6 +24,5 @@ struct SearchRecipesApi{
             return try JSONDecoder().decode(SearchRecipes.self, from: data)
         }.eraseToAnyPublisher()
         
-      
     }
 }

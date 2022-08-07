@@ -17,6 +17,7 @@ protocol FavoriteCollectionViewCellDelegate {
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
     
+    
     var favorite:Favorite!
     var indexPath:IndexPath!
     var delegate:FavoriteCollectionViewCellDelegate!
@@ -106,7 +107,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         imageView.layer.borderWidth = 0.5
         imageView.layer.cornerRadius = 8
         config()
- 
+        
+        
     }
 }
 

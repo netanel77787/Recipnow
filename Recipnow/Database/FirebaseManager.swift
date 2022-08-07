@@ -9,9 +9,8 @@ import Foundation
 import FirebaseDatabase
 import FirebaseAuth
 
-
 class FirebaseManager{
-   static let favoritesRef = Database.database().reference(withPath: "Favorites")
+    static let favoritesRef = Database.database().reference(withPath: "Favorites")
     
     enum DBError:Error {
         case userNotFound(Error?)
@@ -31,7 +30,7 @@ class FirebaseManager{
             return
             
         }
-      favoritesRef.child(user.uid).getData(completion: { err, snap in
+        favoritesRef.child(user.uid).getData(completion: { err, snap in
             
             if !snap.exists() {
                 callback(nil,DBError.noData(nil))
@@ -44,21 +43,18 @@ class FirebaseManager{
             var rand = [Favorite]()
             var search = [Favorite]()
             if let userFavoritesRandom = userFavoritesRandom {
-            for k in userFavoritesRandom.values {
-                rand.append(Favorite.init(dict: k as! [String:Any])!)
-            }
+                for k in userFavoritesRandom.values {
+                    rand.append(Favorite.init(dict: k as! [String:Any])!)
+                }
             }
             if let userFavoritesSearch = userFavoritesSearch {
-            for k in userFavoritesSearch.values {
-                search.append(Favorite.init(dict: k as! [String:Any])!)
-            }
+                for k in userFavoritesSearch.values {
+                    search.append(Favorite.init(dict: k as! [String:Any])!)
+                }
             }
             
             callback((rand,search),nil)
         })
-
-     
-        
         
     }
     
@@ -96,8 +92,5 @@ class FirebaseManager{
             callback("Successfully removed favorite item", err)
         })
     }
-    
-
-    
     
 }

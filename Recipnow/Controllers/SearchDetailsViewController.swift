@@ -36,14 +36,13 @@ class SearchDetailsViewController: UIViewController {
     @IBAction func webSearch(_ sender: UIButton) {
 
         let webaddress = (recipe?.link ?? recipeFav?.link)?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
         guard
             let url = URL(string: webaddress!)
         else {return}
 
        let sfvc = SFSafariViewController(url: url)
 
-        navigationController?.pushViewController(sfvc, animated: true)
+        present(sfvc, animated: true)
     }
     
     
@@ -52,12 +51,14 @@ class SearchDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .black
         scrollView.contentSize = CGSize(width: 200 , height: 300)
         
         
         idLabel.text = selectedID
         nameLabel.text = selectedName
+        
+        
         
         imageView.image = selectedImage ?? UIImage(systemName: "photo")
         
@@ -69,12 +70,15 @@ class SearchDetailsViewController: UIViewController {
         contentLabel.text = recipe?.content ?? recipeFav?.content
         
         let style = "\"font-size:18px;\""
+        let content = recipe?.content ?? recipeFav?.content ?? ""
+
+        contentLabel.attributedText = ("<p style = \(style)> \(content)</p>").htmlToAttributedString
+
         
-        contentLabel.attributedText = ("<p style = \(style)>\(recipe?.content ?? recipeFav?.content)</p>").htmlToAttributedString
-        
-        if recipeFav != nil {
-            
-        }
+
+        idLabel.textColor = .white
+        nameLabel.textColor = .white
+        contentLabel.textColor = .white
       
     }
     

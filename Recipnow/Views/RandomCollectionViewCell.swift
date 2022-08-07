@@ -56,6 +56,12 @@ class RandomCollectionViewCell: UICollectionViewCell {
         
         readyMinutesLabel.text = String(readyMinutes) + "\(minutes)"
         
+        idLabel.textColor = .white
+        
+        titleLabel.textColor = .white
+        
+        readyMinutesLabel.textColor = .white
+        
         guard let url = URL(string: address) else {return}
         
         URLSession.shared.dataTaskPublisher(for: url)

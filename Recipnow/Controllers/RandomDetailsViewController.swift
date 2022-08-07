@@ -22,9 +22,6 @@ class RandomDetailsViewController: UIViewController {
     
     var selectedSummary: String?
     
-    var selectedInstructions: String?
-    
-    
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -38,7 +35,6 @@ class RandomDetailsViewController: UIViewController {
     
     @IBOutlet weak var summaryLabel: UILabel!
     
-    @IBOutlet weak var instructionsLabel: UILabel!
     
     @IBOutlet weak var scrollContentStack: UIStackView!
     
@@ -48,16 +44,20 @@ class RandomDetailsViewController: UIViewController {
         guard
             let url = URL(string: webaddress!)
         else {return}
-
-       let sfvc = SFSafariViewController(url: url)
-
+        
+        let sfvc = SFSafariViewController(url: url)
+        
         present(sfvc, animated: true)
     }
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        view.backgroundColor = .black
+        
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1500)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ class RandomDetailsViewController: UIViewController {
         scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         
         imageView.image = selectedImage ?? UIImage(systemName: "photo")
-  
+        
         if let id = recipe?.id {
             idLabel.text = "\(id)"
         }else if let id  = recipeFav?.recipeID  {
@@ -80,27 +80,24 @@ class RandomDetailsViewController: UIViewController {
             titleLabel.text = name
         }
         if let recipe = recipe {
-            readyMinutesLabel.text = "Ready in minutes: \(recipe.readyInMinutes ?? 0)"
+            readyMinutesLabel.text = "Ready in \(recipe.readyInMinutes ?? 0) minutes"
         }else {
             readyMinutesLabel.text = ""
         }
-        let instructions = recipe?.instructions ?? ""
+        
         let summary = recipe?.content ?? recipeFav?.content ?? ""
         
         let style = "\"font-size:20px;\""
         summaryLabel.attributedText = ("<p style = \(style)> \(summary)</p>").htmlToAttributedString
         
-       
-        
-        instructionsLabel.attributedText = instructions.htmlToAttributedString
         summaryLabel.numberOfLines =  summary.count
-        instructionsLabel.numberOfLines =  instructions.count
         
-        if recipeFav != nil {
-            
-            instructionsLabel.text = ""
-        }
+        idLabel.textColor = .white
+        readyMinutesLabel.textColor = .white
+        summaryLabel.textColor = .white
+        titleLabel.textColor = .white
+        
     }
-
-
+    
+    
 }

@@ -15,7 +15,7 @@ class RandomCollectionViewController: UICollectionViewController,RandomCollectio
         self.performSegue(withIdentifier: "details", sender: recipe)
     }
     func addToFavorites(recipe: RRecipe) {
-        showSuccess(title: "")
+        showSuccess(title: "Added successfully")
     }
     func errorAddingToFavorites(err: Error) {
 
@@ -26,6 +26,7 @@ class RandomCollectionViewController: UICollectionViewController,RandomCollectio
     var subscriptions : Set<AnyCancellable> = []
     var prev : RRecipe?
     var nextRecipe : RRecipe?
+    
      func reloadItem() {
         RandomRecipeApi.shared.randomRequest()
             .receive(on: DispatchQueue.main)
@@ -58,6 +59,9 @@ class RandomCollectionViewController: UICollectionViewController,RandomCollectio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.backgroundColor = .black
+        
         reloadItem()
         reloadRandom()
         returnRandom()
@@ -84,7 +88,7 @@ class RandomCollectionViewController: UICollectionViewController,RandomCollectio
             dest.selectedTitle = selectedRecipe.name
             dest.selectedID =  "\(String(describing: id))"
             dest.selectedSummary = selectedRecipe.content
-            dest.selectedInstructions = selectedRecipe.instructions
+
             dest.selectedMinutes =  "\(String(describing: readyMinutes))" + "\(minutes)"
             
             dest.recipe = selectedRecipe

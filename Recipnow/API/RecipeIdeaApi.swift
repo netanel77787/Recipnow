@@ -17,9 +17,7 @@ struct RecipeIdeaApi{
     
     func requestIdeas()-> AnyPublisher<RecipeIdea?, URLError>{
         
-        
         let url = URL(string: address)!
-        
         
        return URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.main).map { result -> RecipeIdea? in

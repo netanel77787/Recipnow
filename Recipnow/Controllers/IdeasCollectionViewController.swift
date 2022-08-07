@@ -17,6 +17,9 @@ class IdeasCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        collectionView.backgroundColor = .black
+        
         
         signOut()
         shuffle()
@@ -42,11 +45,6 @@ class IdeasCollectionViewController: UICollectionViewController {
             }
         }.store(in: &subscriptions)
 
-//        FirebaseManager.shared.getFavorites { recipes  in
-//            for recipe in recipes {
-//                print(recipe)
-//            }
-//        }
     }
     
    

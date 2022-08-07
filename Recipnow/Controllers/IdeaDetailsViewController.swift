@@ -16,8 +16,8 @@ class IdeaDetailsViewController: UIViewController {
     var selectedID: String?
     
     var selectedImage: UIImage?
+ 
     
-  
     @IBOutlet weak var ideaIDLabel: UILabel!
     
     @IBOutlet weak var ideaTitleLabel: UILabel!
@@ -45,6 +45,9 @@ class IdeaDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .black
+
+        
         guard let selectedTitle = selectedTitle,
               let selectedID = selectedID,
               let image = selectedImage
@@ -56,6 +59,9 @@ class IdeaDetailsViewController: UIViewController {
         ideaIDLabel.text = selectedID
         
         IdeaImageView.image = image
+       
+        ideaTitleLabel.textColor = .white
+        ideaIDLabel.textColor = .white
        
     }
     
